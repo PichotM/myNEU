@@ -1,15 +1,15 @@
 import { MenuActionTypes, SET_THEME } from "../action";
 import { ThemeKey } from "../../constants/theme";
 
-interface IState {
+export interface IInitialMainState {
   theme : ThemeKey
 }
 
-const initialState: IState = {
+const initialMainState: IInitialMainState = {
   theme : "Northeastern"
 };
 
-const MainReducer = (state = initialState, action: MenuActionTypes): IState => {
+const MainReducer = (state = initialMainState, action: MenuActionTypes): IInitialMainState => {
   switch (action.type) {
     case SET_THEME:
       return { ...state, theme : action.payload.theme }

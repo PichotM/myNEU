@@ -26,7 +26,7 @@ interface State {
 
 export default class App extends Component<Props, State> {
   public state: State = {
-    theme: "Dark"
+    theme: "Northeastern"
   };
 
   componentDidMount() {
