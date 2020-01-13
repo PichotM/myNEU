@@ -60,7 +60,7 @@ class Component extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.navigation.navigate("LibraryBooking");
+    this.props.navigation.navigate("Settings");
   }
 
   private onItemPress = (index: number) => {
