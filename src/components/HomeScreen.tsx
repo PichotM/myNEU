@@ -105,7 +105,7 @@ class Component extends React.Component<Props, State> {
     return utilities.map((value, key) => {
       if (key % 2 == 0) {
         return (
-          <View style={themedStyle.menuParent}>
+          <View key={key} style={themedStyle.menuParent}>
               {this.populateMenu(key, key + 1)}
           </View>
         )
