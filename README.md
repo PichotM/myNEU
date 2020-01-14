@@ -13,5 +13,14 @@ Work has been done on library's booking and NUBanner, the platform used to regis
 - Student/NEU's profile information
 - Suggestions....
 
-### Preview
-TODO!
+### Android preview
+On date 01/14/2020
+
+![](https://i.imgur.com/yoYLBZA.jpg)
+![](https://i.imgur.com/8TSnuzC.jpg)
+![](https://i.imgur.com/Fma4jTC.jpg)
+![](https://i.imgur.com/5r2ZPP7.jpg)
+![](https://i.imgur.com/ZIxyTLX.jpg)
+![](https://i.imgur.com/sk3n2gM.jpg)
+![](https://i.imgur.com/Zz3qltF.jpg)
+![](https://i.imgur.com/Lirp3Om.jpg)
