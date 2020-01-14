@@ -14,7 +14,7 @@ import {
 import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { ThemeKey } from "../../constants/theme";
-import ClassTrackerAdd from "./ClassTrackerAdd";
+import { ClassTrackerAdd } from "./ClassTrackerAdd";
 
 const BottomNavigationClassTracker = (props) => {
   const [selectedIndex, setSelectedIndex] = React.useState(props.currentFrame);
