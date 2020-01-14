@@ -7,7 +7,7 @@ import {
 
 import { StyleSheet, View } from 'react-native'
 import { connect } from "react-redux";
-import { ThemeKey } from "../constants/theme";
+import { ThemeKey } from "../../constants/theme";
 import { SettingItem } from "./SettingItem";
 
 // TODO settings reducer only?

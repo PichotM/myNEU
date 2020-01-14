@@ -20,8 +20,8 @@ export const utilities: IUtility[] = [
         icon : require('../assets/icons/gear.png')
     },
     {
-        title : "Track class",
-        component : "NUBanner",
+        title : "Class Tracker",
+        component : "ClassTracker",
         locked : false,
         icon : require('../assets/icons/paper.png')
     },
@@ -33,7 +33,7 @@ export const utilities: IUtility[] = [
     },
     {
         title : "myNEU profile",
-        component : "Schedule",
+        component : "Profile",
         locked : true,
         icon : require('../assets/icons/user.png')
     },

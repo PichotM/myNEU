@@ -10,7 +10,7 @@ export interface ISetTheme {
     theme: ThemeKey;
   };
 }
-export type MenuActionTypes = ISetTheme;
+export type MainActionTypes = ISetTheme;
 
 // action creators
 export const setTheme = (theme: ThemeKey): ISetTheme => ({

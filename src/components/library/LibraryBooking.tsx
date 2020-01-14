@@ -15,8 +15,7 @@ import {
 
 import { StyleSheet, View } from 'react-native'
 import { connect } from "react-redux";
-import { ThemeKey } from "../constants/theme";
-import DateTimePicker from '@react-native-community/datetimepicker';
+import { ThemeKey } from "../../constants/theme";
 
 type Props = {
   theme: ThemeKey;

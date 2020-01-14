@@ -12,7 +12,6 @@ import {
 import { ThemeKey } from '../constants/theme';
 import { TouchableOpacity } from 'react-native';
 import { utilities } from '../constants/utilities';
-import { SafeAreaView } from 'react-navigation';
 
 const iconSize = 64
 
@@ -60,7 +59,7 @@ class Component extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.props.navigation.navigate("Settings");
+    this.props.navigation.navigate("ClassTracker");
   }
 
   private onItemPress = (index: number) => {

@@ -1,24 +1,16 @@
 import React, { Component } from "react";
 
 import {
-  ApplicationProvider,
-  Layout,
-  Text,
-  IconRegistry,
-  Input,
-  Datepicker,
-  Select,
-  Button,
-  Icon,
-  SelectOption,
   BottomNavigation,
   BottomNavigationTab,
+  Text,
+  Divider
 } from "@ui-kitten/components";
 
 import { StyleSheet, View } from 'react-native'
 import { connect } from "react-redux";
-import { ThemeKey } from "../constants/theme";
-import { RoomItem } from ".";
+import { ThemeKey } from "../../constants/theme";
+import { RoomItem } from "..";
 
 type Props = {
   theme: ThemeKey;
@@ -31,7 +23,7 @@ type State = {
 
 class LibraryRooms extends Component<Props, State> {
   static navigationOptions = {
-    title: "Rooms available",
+    title: "Rooms available 22/01",
     headerStyle: {
       backgroundColor: "#9A000D",
     },
@@ -54,7 +46,25 @@ class LibraryRooms extends Component<Props, State> {
   async componentDidMount() {
   }
 
+  private updateHour(tabIndex: number) {
+    let newHour = this.state.hour + (tabIndex - 2)
+
+    if (newHour < 0) {
+      newHour = 23
+    } else if (newHour > 24) {
+      newHour = 1
+    }
+
+    this.setState({ hour : newHour })
+  }
+
   private formatHour(hour: number): string {
+    if (hour < 0) {
+      hour = 24 + hour
+    } else if (hour >= 24) {
+      hour = hour - 24
+    }
+  
       return `${hour}h`
   }
 
@@ -63,13 +73,14 @@ class LibraryRooms extends Component<Props, State> {
         <View style={{ flex: 1 }}>
             <BottomNavigation
             selectedIndex={2}
-            onSelect={() => {}}>
+            onSelect={this.updateHour.bind(this)}>
                 <BottomNavigationTab title={this.formatHour(this.state.hour - 2)}/>
                 <BottomNavigationTab title={this.formatHour(this.state.hour - 1)}/>
                 <BottomNavigationTab title={this.formatHour(this.state.hour)}/>
                 <BottomNavigationTab title={this.formatHour(this.state.hour + 1)}/>
                 <BottomNavigationTab title={this.formatHour(this.state.hour + 2)}/>
             </BottomNavigation>
+            <Divider />
             <View>
                 <RoomItem onPress={() => { console.log('dqsds') }} style={styles.roomItem} title="Room 354 (5 capacity)" value={"from 3:30pm to 5pm"} />
                 <RoomItem style={styles.roomItem} title="Room 354 (5 capacity)" value={"from 3:30pm to 5pm"} />
@@ -90,7 +101,7 @@ const styles = StyleSheet.create({
     paddingTop: 16
   },
   roomItem: {
-    padding: 16,
+    padding: 14,
   }
 });
 

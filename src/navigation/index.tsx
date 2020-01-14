@@ -3,9 +3,12 @@ import { createStackNavigator } from "react-navigation-stack";
 import { createAppContainer } from "react-navigation";
 import { HomeScreen } from "../components/";
 import Events from "../components/Events";
-import LibraryBooking from "../components/LibraryBooking";
-import LibraryRooms from "../components/LibraryRooms";
-import Settings from "../components/Settings";
+import LibraryBooking from "../components/library/LibraryBooking";
+import LibraryRooms from "../components/library/LibraryRooms";
+import Settings from "../components/settings/Settings";
+import Profile from "../components/profile/Profile";
+import Schedule from "../components/schedule/Schedule";
+import ClassTracker from "../components/nubanner/ClassTracker";
 
 const HomeNavigator = createStackNavigator(
   {
@@ -13,7 +16,10 @@ const HomeNavigator = createStackNavigator(
     Events: Events,
     LibraryBooking: LibraryBooking,
     LibraryRooms: LibraryRooms,
-    Settings: Settings
+    Settings: Settings,
+    Profile: Profile,
+    Schedule: Schedule,
+    ClassTracker: ClassTracker
   },
   {
     initialRouteName: "Home",

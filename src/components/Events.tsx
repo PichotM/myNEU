@@ -84,44 +84,10 @@ class Events extends Component<Props, State> {
 
   render() {
     return (
-        <Text>Hello there.</Text>
+        <Text style={{ padding: 16 }}>Coming soon!</Text>
     )
   }
 }
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    list: {
-      flex: 1,
-    },
-    listContent: {
-      paddingHorizontal: 16,
-      paddingVertical: 8,
-    },
-    item: {
-      marginVertical: 8,
-    },
-    itemHeader: {
-      height: 220,
-    },
-    itemContent: {
-      marginVertical: 8,
-    },
-    itemFooter: {
-      flexDirection: 'row',
-      marginHorizontal: -8,
-    },
-    iconButton: {
-      paddingHorizontal: 0,
-    },
-    itemAuthoringContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      marginHorizontal: 16,
-    },
-  });
 
 const mapStateToProps = state => ({
   theme: state.main.theme

@@ -1,2 +1,2 @@
 export * from './HomeScreen';
-export * from './RoomItem'
+export * from './library/RoomItem'
