@@ -1,13 +1,13 @@
 import { SET_TRACKED_CLASSES, ClassTrackerActionTypes } from "../action/classtracker";
+import { TrackedClass } from "../../models/TrackedClass";
+
 
 export interface IInitialClassTrackerState {
-    classes : any[]
+    classes : TrackedClass[]
 }
 
 const initialMainState: IInitialClassTrackerState = {
-    classes : [
-      { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0 }
-    ]
+    classes : []
 };
 
 const ClassTrackerReducer = (state = initialMainState, action: ClassTrackerActionTypes): IInitialClassTrackerState => {
