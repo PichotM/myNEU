@@ -14,7 +14,8 @@ import {
 import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { ThemeKey } from "../../constants/theme";
-import { ClassTrackerAdd } from "./ClassTrackerAdd";
+import ClassTrackerAdd from "./ClassTrackerAdd";
+import { TrackedClass } from "../../models/TrackedClass";
 
 const BottomNavigationClassTracker = (props) => {
   const [selectedIndex, setSelectedIndex] = React.useState(props.currentFrame);
@@ -36,13 +37,14 @@ const BottomNavigationClassTracker = (props) => {
 type Props = {
   theme: ThemeKey;
   navigation: any;
-  classes: any[];
+  classes: TrackedClass[];
 };
 
 type State = {
   currentFrame: number
 };
 
+// TODO switch to hooks
 class NUBanner extends Component<Props, State> {
   static navigationOptions = {
     title: "Class Tracker",
@@ -70,11 +72,11 @@ class NUBanner extends Component<Props, State> {
 
     return classes.map((value, key) => {
       return (
-        <React.Fragment>
+        <React.Fragment key={key}>
           <TouchableOpacity style={styles.trackCard}>
             <View style={styles.cardHeader}>
               <Text style={styles.cardName}>{value.name}</Text>
-              <Text style={styles.cardNRE}>{value.nre}</Text>
+              <Text style={styles.cardNRE}>{String(value.nre)}</Text>
             </View>
             <View style={styles.cardInfo}>
               <Text style={styles.cardSeats}>{`${value.seatsAvailable} seat(s) available`}</Text>
@@ -87,7 +89,6 @@ class NUBanner extends Component<Props, State> {
   }
 
   render() {
-    console.log(this.props.classes)
     return (
       <View style={styles.container}>
         {this.state.currentFrame === 1 ? <ClassTrackerAdd /> : (!this.props.classes || this.props.classes.length === 0) ? (
@@ -146,20 +147,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  //classes: state.classtracker.classes
-  classes: [
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-    { name : 'FINA 4301', maxSeats: 40, seatsAvailable: 0, nre : '45566' },
-  ]
+  classes: state.classtracker.classes
 });
 
 export default connect(mapStateToProps, {})(NUBanner);

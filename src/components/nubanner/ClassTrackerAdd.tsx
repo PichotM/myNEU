@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from 'axios';
+import { connect } from 'react-redux';
 
 import {
   Input,
@@ -9,13 +11,21 @@ import {
 } from "@ui-kitten/components";
 
 import { StyleSheet, View } from "react-native";
+import { addTrackedClass, IAddTrackedClass } from "../../redux/action/classtracker";
+import { TrackedClass } from "../../models/TrackedClass";
 
-  const tempData: AutocompleteOption[] = Array.from(new Array(9)).map((i, value) => ({
-    title: `FINA 100${value + 1}`
-  }));
-export const ClassTrackerAdd = () => {
+const tempData: AutocompleteOption[] = Array.from(new Array(9)).map((i, value) => ({
+  title: `FINA 100${value + 1}`
+}));
 
-  const [nre, setNRE] = React.useState(null);
+interface IClassTrackerAddProps {
+  classes: TrackedClass[],
+  addTrackedClass: (trackedClass: TrackedClass) => IAddTrackedClass
+}
+
+// Test NRE 30581
+const ClassTrackerAdd = (props: IClassTrackerAddProps) => {
+  const [nre, setNRE] = React.useState("30581");
   const [course, setCourse] = React.useState(null);
 
   const renderIcon = style => {
@@ -29,14 +39,40 @@ export const ClassTrackerAdd = () => {
 
   const trackClass = () => {
     let courseNRE
-    // Todo verify if NRE is valid
     if (nre) {
       courseNRE = nre
     } else if (course) {
       // todo find NRE from course //
     }
 
-    // if NRE is valid, add class to tracker, also cliently check for duplicates
+    // Notification NRE not valid?
+    if (!courseNRE) return;
+    // Check if the NRE is valid
+    axios({
+      method: 'post',
+      url: `https://nubanner.neu.edu/StudentRegistrationSsb/ssb/searchResults/getClassDetails?term=${202030}&courseReferenceNumber=${courseNRE}&first=first`
+    })
+    .then((response) => {
+      const rawResponse = response
+      if (rawResponse && rawResponse.status === 200) {
+        const newClass = new TrackedClass(courseNRE)
+        const index = props.classes.findIndex((e) => e.nre === courseNRE)
+        if (index === -1) {
+          const cleanText = rawResponse.data.replace(/<[^>]*>?/gm, '');
+          const lines = cleanText.split(/\r?\n/);
+          lines.forEach((element, i) => {
+              if (element) {
+                const div = element.split(':')
+                console.log(i, div)
+              }
+          });
+
+          props.addTrackedClass(newClass)
+        }
+      }
+    }, (error) => {
+      console.log(error);
+    });
   }
 
   return (
@@ -92,4 +128,9 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ClassTrackerAdd;
+const mapStateToProps = state => ({
+  classes: state.classtracker.classes
+});
+
+export default connect(mapStateToProps, { addTrackedClass: addTrackedClass })(ClassTrackerAdd);
+
