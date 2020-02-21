@@ -554,3 +554,5 @@ GoogleService-Info.plist
 
 # generated file
 RNFBVersion.m
+
+package-lock.*
