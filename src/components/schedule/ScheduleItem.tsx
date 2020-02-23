@@ -1,23 +1,11 @@
 import React, { Component } from "react";
-
-import {
-  Layout,
-  Toggle,
-  Select,
-  SelectOption,
-  Divider,
-  Text,
-  Icon
-} from "@ui-kitten/components";
-
+import { Text, Icon } from "@ui-kitten/components";
 import { StyleSheet, View, ScrollView } from 'react-native'
 
 type Props = { data: any };
-type State = {}
 
 // Design inspiration from NUGO
-export default class ScheduleItem extends Component<Props, State> {
-  render() {
+const ScheduleItem: React.FC<Props> = (props: Props) => {
     return (
         <View style={styles.container}>
             <View style={styles.headerContainer}>
@@ -37,7 +25,6 @@ export default class ScheduleItem extends Component<Props, State> {
             </View>
         </View>
     )
-  }
 }
 
 const styles = StyleSheet.create({
@@ -115,3 +102,5 @@ const styles = StyleSheet.create({
       height: 24,
   }
 });
+
+export default ScheduleItem;

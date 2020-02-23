@@ -24,7 +24,7 @@ interface IClassTrackerAddProps {
 }
 
 // Test NRE 30581
-const ClassTrackerAdd = (props: IClassTrackerAddProps) => {
+const ClassTrackerAdd: React.FC<IClassTrackerAddProps> = (props: IClassTrackerAddProps) => {
   const [nre, setNRE] = React.useState("30581");
   const [course, setCourse] = React.useState(null);
 

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import {
   ApplicationProvider,
@@ -12,32 +12,22 @@ import { Provider } from "react-redux";
 import { mapping, light as lightTheme } from '@eva-design/eva';
 import store from "./src/redux/store";
 
-type Props = {
-  setTheme: Function;
-};
+const App: React.FC = () => {
+  const [theme, setTheme] = useState("Northeastern")
 
-interface State {
-  theme: ThemeKey;
+  return (
+    <React.Fragment>
+      <IconRegistry icons={EvaIconsPack} />
+      <Provider store={store}>
+        <ApplicationProvider
+          mapping={mapping}
+          theme={themes[theme]}
+        >
+          <AppNavigator />
+        </ApplicationProvider>
+      </Provider>
+    </React.Fragment>
+  );
 }
 
-export default class App extends Component<Props, State> {
-  public state: State = {
-    theme: "Northeastern"
-  };
-
-  render() {
-    return (
-      <React.Fragment>
-        <IconRegistry icons={EvaIconsPack} />
-        <Provider store={store}>
-          <ApplicationProvider
-            mapping={mapping}
-            theme={themes[this.state.theme]}
-          >
-            <AppNavigator />
-          </ApplicationProvider>
-        </Provider>
-      </React.Fragment>
-    );
-  }
-}
+export default App;

@@ -1,10 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import {
-  Layout,
-  Toggle,
-  Select,
-  SelectOption,
   Divider,
   Text,
   BottomNavigation,
@@ -16,6 +12,7 @@ import { connect } from "react-redux";
 import { ThemeKey } from "../../constants/theme";
 import ClassTrackerAdd from "./ClassTrackerAdd";
 import { TrackedClass } from "../../models/TrackedClass";
+import { NavigationStackScreenProps, NavigationStackScreenComponent } from "react-navigation-stack";
 
 const BottomNavigationClassTracker = (props) => {
   const [selectedIndex, setSelectedIndex] = React.useState(props.currentFrame);
@@ -28,47 +25,22 @@ const BottomNavigationClassTracker = (props) => {
     <BottomNavigation
       selectedIndex={selectedIndex}
       onSelect={setSelectedIndex}>
-      <BottomNavigationTab title='Tracked'/>
-      <BottomNavigationTab title='Add tracker'/>
+      <BottomNavigationTab title='Tracked' />
+      <BottomNavigationTab title='Add tracker' />
     </BottomNavigation>
   );
 };
 
-type Props = {
-  theme: ThemeKey;
-  navigation: any;
-  classes: TrackedClass[];
-};
-
-type State = {
-  currentFrame: number
-};
-
 // TODO switch to hooks
-class NUBanner extends Component<Props, State> {
-  static navigationOptions = {
-    title: "Class Tracker",
-    headerStyle: {
-      backgroundColor: "#9A000D"
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold",
-      alignSelf: "center",
-      textAlign: "center"
-    }
-  };
+interface ISettingsProps extends NavigationStackScreenProps {
+  classes: TrackedClass[]
+}
 
-  constructor(props) {
-    super(props);
+const NUBanner: NavigationStackScreenComponent<any> = (props: ISettingsProps) => {
+  const [currentFrame, setCurrentFrame] = useState(0);
 
-    this.state = {
-      currentFrame : 0
-    };
-  }
-
-  private getTrackedClasses() {
-    const { classes } = this.props
+  const getTrackedClasses = () => {
+    const { classes } = props
 
     return classes.map((value, key) => {
       return (
@@ -88,22 +60,20 @@ class NUBanner extends Component<Props, State> {
     })
   }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        {this.state.currentFrame === 1 ? <ClassTrackerAdd /> : (!this.props.classes || this.props.classes.length === 0) ? (
-          <View style={styles.emptyTextContainer}>
-            <Text style={styles.emptyText}>You are not tracking any classes.</Text>
-          </View>
-        ) : (
+  return (
+    <View style={styles.container}>
+      {currentFrame === 1 ? <ClassTrackerAdd /> : (!props.classes || props.classes.length === 0) ? (
+        <View style={styles.emptyTextContainer}>
+          <Text style={styles.emptyText}>You are not tracking any classes.</Text>
+        </View>
+      ) : (
           <ScrollView>
-            { this.getTrackedClasses() }
+            {this.getTrackedClasses()}
           </ScrollView>
         )}
-        <BottomNavigationClassTracker currentFrame={this.state.currentFrame} onChange={(e) => this.setState({ currentFrame : e })} />
-      </View>
-    );
-  }
+      <BottomNavigationClassTracker currentFrame={currentFrame} onChange={(e) => setCurrentFrame(e)} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -149,5 +119,18 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   classes: state.classtracker.classes
 });
+
+NUBanner.navigationOptions = {
+  title: "Class Tracker",
+  headerStyle: {
+    backgroundColor: "#9A000D"
+  },
+  headerTintColor: "#fff",
+  headerTitleStyle: {
+    fontWeight: "bold",
+    alignSelf: "center",
+    textAlign: "center"
+  }
+};
 
 export default connect(mapStateToProps, {})(NUBanner);

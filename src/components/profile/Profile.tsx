@@ -1,48 +1,14 @@
 import React, { Component } from "react";
 
-import {
-  BottomNavigation,
-  BottomNavigationTab,
-  Text,
-  Divider
-} from "@ui-kitten/components";
-
-import { StyleSheet, View, Button } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
-import { ThemeKey } from "../../constants/theme";
 import { ProfileAvatar } from "./ProfileAvatar";
 import { ProfileItem } from "./ProfileItem";
+import { NavigationStackScreenComponent, NavigationStackScreenProps } from "react-navigation-stack";
 
-type Props = {
-  theme: ThemeKey;
-  navigation: any;
-};
+interface ISettingsProps extends NavigationStackScreenProps {}
+const Profile: NavigationStackScreenComponent<ISettingsProps> = (props: ISettingsProps) => {
 
-type State = {};
-
-class Profile extends Component<Props, State> {
-  static navigationOptions = {
-    title: "My profile",
-    headerStyle: {
-      backgroundColor: "black"
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold",
-      alignSelf: "center",
-      textAlign: "center"
-    }
-  };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {};
-  }
-
-  async componentDidMount() {}
-
-  render() {
     return (
       <View style={styles.container}>
         <ProfileAvatar
@@ -76,7 +42,6 @@ class Profile extends Component<Props, State> {
         />
       </View>
     );
-  }
 }
 
 const styles = StyleSheet.create({
@@ -109,5 +74,18 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   theme: state.main.theme
 });
+
+Profile.navigationOptions = {
+  title: "My profile",
+  headerStyle: {
+    backgroundColor: "black"
+  },
+  headerTintColor: "#fff",
+  headerTitleStyle: {
+    fontWeight: "bold",
+    alignSelf: "center",
+    textAlign: "center"
+  }
+};
 
 export default connect(mapStateToProps, {})(Profile);

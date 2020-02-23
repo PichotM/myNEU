@@ -1,101 +1,56 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import {
-  ApplicationProvider,
   Layout,
   Text,
-  IconRegistry,
-  Input,
   Datepicker,
   Select,
   Button,
-  Icon,
-  SelectOption,
 } from "@ui-kitten/components";
 
 import { StyleSheet, View } from 'react-native'
 import { connect } from "react-redux";
-import { ThemeKey } from "../../constants/theme";
+import { NavigationStackScreenComponent } from "react-navigation-stack";
 
-type Props = {
-  theme: ThemeKey;
-  navigation: any;
-};
-
-type State = {
-  peopleAmount?: SelectOption,
-  timeAmount?: SelectOption,
-  date?: Date,
-  floorId?: SelectOption,
-  hour?: Date,
-}
-
-class LibraryBooking extends Component<Props, State> {
-  static navigationOptions = {
-    title: "Book a room",
-    headerStyle: {
-      backgroundColor: "#9A000D",
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold",
-      alignSelf:'center',
-      textAlign: 'center',
-    }
-  };
+const LibraryBooking: NavigationStackScreenComponent<any> = (props: any) => {
+  const [peopleAmount, setPeopleAmount] = useState();
+  const [date, setDate] = useState(new Date());
+  const [timeAmount, setTimeAmount] = useState();
+  const [hour, setHour] = useState();
+  const [floorId, setFloorId] = useState();
 
   // Select components data
-  private timeSelect = [ { text: "15 minutes" }, { text: "30 minutes" }, { text: "45 minutes" }, { text: "1 hour" }, { text: "1 hour and 15 minutes" }, { text: "1 hour and 30 minutes" }, { text: "1 hour and 45 minutes" }, { text: "More or 2 hours" } ]
-  private amountSelect = [ { text: "1 person" }, { text: "2 persons" }, { text: "3 persons" }, { text: "4 persons" }, { text: "5 persons" }, { text: "6 persons" }, { text: "+6 persons" } ]
-  private snailFloor = [ { text: "Floor one" }, { text: "Floor two" }, { text: "Floor three" }, { text: "Floor four" } ]
+  const timeSelect = [ { text: "15 minutes" }, { text: "30 minutes" }, { text: "45 minutes" }, { text: "1 hour" }, { text: "1 hour and 15 minutes" }, { text: "1 hour and 30 minutes" }, { text: "1 hour and 45 minutes" }, { text: "More or 2 hours" } ]
+  const amountSelect = [ { text: "1 person" }, { text: "2 persons" }, { text: "3 persons" }, { text: "4 persons" }, { text: "5 persons" }, { text: "6 persons" }, { text: "+6 persons" } ]
+  const snailFloor = [ { text: "Floor one" }, { text: "Floor two" }, { text: "Floor three" }, { text: "Floor four" } ]
 
-  constructor(props) {
-      super(props)
+  const filter = (date: Date) => date.getTime() >= new Date().getTime() - 1000 * 60 * 60 * 24
 
-      this.state = {
-        hour : new Date()
-      }
-  }
-
-  async componentDidMount() {
-    const response: any = await fetch('https://neu.campuslabs.com/engage/api/discovery/event/search?endsAfter=2020-01-13T15%3A27%3A11-05%3A00&orderByField=endsOn&orderByDirection=ascending&status=Approved&take=15&query=').catch(err => { console.log('Error: ', err) })
-    
-    if (response) {
-        const eventData = await response.json()
-        if (eventData.value && eventData.value.length > 0) {
-        }
-    }
-  }
-
-  private filter = (date: Date) => date.getTime() >= new Date().getTime() - 1000 * 60 * 60 * 24
-
-  render() {
     return (
         <View style={{ flex: 1 }}>
           <Layout style={styles.container}>
             <Text style={styles.helpText}>Main search filters (none are mandatory)</Text>
-            <Select size='large' placeholder="How many are you?" data={this.amountSelect} selectedOption={this.state.peopleAmount} style={styles.simpleInput} onSelect={(e) => this.setState({ peopleAmount : e })} />
+            <Select size='large' placeholder="How many are you?" data={amountSelect} selectedOption={peopleAmount} style={styles.simpleInput} onSelect={(e) => setPeopleAmount(e)} />
             
             <Datepicker
               placeholder='When do you want a room?'
               size='large'
-              date={this.state.date}
+              date={date}
               onSelect={(e) => this.setState({ date : e })}
-              filter={this.filter}
+              filter={filter}
               style={styles.simpleInput}
             />
 
             <Text style={styles.helpText}>Optionnal search filters</Text>
-            <Select size='large' placeholder="How much time?" data={this.timeSelect} selectedOption={this.state.timeAmount} style={styles.simpleInput} onSelect={() => {}} />
-            <Select size='large' placeholder="What floor?" data={this.snailFloor} selectedOption={this.state.floorId} style={styles.simpleInput} onSelect={() => {}} />
+            <Select size='large' placeholder="How much time?" data={timeSelect} selectedOption={timeAmount} style={styles.simpleInput} onSelect={() => {}} />
+            <Select size='large' placeholder="What floor?" data={snailFloor} selectedOption={floorId} style={styles.simpleInput} onSelect={() => {}} />
           </Layout>
           <Layout style={styles.footerContainer}>
-            <Button style={styles.button} status='danger' onPress={() => { this.props.navigation.navigate('LibraryRooms', this.state); }}>SORT ROOMS</Button>
-            <Button style={styles.button} status='basic' onPress={() => { this.props.navigation.navigate('Home'); }}>CANCEL</Button>
+            <Button style={styles.button} status='danger' onPress={() => { props.navigation.navigate('LibraryRooms', {}); }}>SORT ROOMS</Button>
+            <Button style={styles.button} status='basic' onPress={() => { props.navigation.navigate('Home'); }}>CANCEL</Button>
           </Layout>
       </View>
     )
-  }
 }
 
 const styles = StyleSheet.create({
@@ -140,5 +95,18 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   theme: state.main.theme
 });
+
+LibraryBooking.navigationOptions = {
+  title: "Book a room",
+  headerStyle: {
+    backgroundColor: "#9A000D",
+  },
+  headerTintColor: "#fff",
+  headerTitleStyle: {
+    fontWeight: "bold",
+    alignSelf:'center',
+    textAlign: 'center',
+  }
+};
 
 export default connect(mapStateToProps, {})(LibraryBooking);

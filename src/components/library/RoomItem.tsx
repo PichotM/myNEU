@@ -8,7 +8,6 @@ export interface ProfileSettingProps extends TouchableOpacityProps {
 }
 
 export const RoomItem = (props: ProfileSettingProps): React.ReactElement => {
-
   const { style, title, value, ...layoutProps } = props;
 
   return (

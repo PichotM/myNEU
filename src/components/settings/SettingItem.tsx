@@ -9,7 +9,6 @@ interface SectionProps extends TouchableOpacityProps {
 
 // From UI-Kitten
 export const SettingItem = (props: SectionProps): React.ReactElement<TouchableOpacityProps> => {
-
   const { style, hint, children, ...touchableOpacityProps } = props;
 
   return (

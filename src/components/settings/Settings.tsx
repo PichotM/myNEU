@@ -7,74 +7,43 @@ import {
 
 import { StyleSheet, View } from 'react-native'
 import { connect } from "react-redux";
-import { ThemeKey } from "../../constants/theme";
 import { SettingItem } from "./SettingItem";
+import { NavigationStackScreenProps, NavigationStackScreenComponent } from "react-navigation-stack";
 
-// TODO settings reducer only?
+interface ISettingsProps extends NavigationStackScreenProps {}
 
-type Props = {
-  theme: ThemeKey;
-  navigation: any;
-};
-
-type State = {}
-
-class Settings extends Component<Props, State> {
-  static navigationOptions = {
-    title: "Settings",
-    headerStyle: {
-      backgroundColor: "#9A000D",
-    },
-    headerTintColor: "#fff",
-    headerTitleStyle: {
-      fontWeight: "bold",
-      alignSelf:'center',
-      textAlign: 'center',
-    }
-  };
-
-  constructor(props) {
-      super(props)
-
-      this.state  = {}
-  }
-
-  async componentDidMount() {
-  }
-
-  render() {
-    return (
-        <View style={{ flex: 1 }}>
-                <Layout style={styles.settingContainer}>
-                    <SettingItem
-                    style={styles.setting}
-                    hint='Edit Profile'
-                    />
-                    <SettingItem
-                    style={styles.setting}
-                    hint='Change Password'
-                    />
-                    <SettingItem
-                    style={styles.setting}
-                    hint='Notification'
-                    />
-                    <SettingItem
-                    style={styles.setting}
-                    hint='Privacy'
-                    />
-                    <SettingItem
-                    style={styles.setting}
-                    hint='Sound Enabled'
-                    onPress={() => {}}>
-                    <Toggle
-                        checked={true}
-                        onChange={() => {}}
-                    />
-                    </SettingItem>
-                </Layout>
-        </View>
-    )
-  }
+const Settings: NavigationStackScreenComponent<ISettingsProps> = (props: ISettingsProps) => {
+  return (
+    <View style={{ flex: 1 }}>
+      <Layout style={styles.settingContainer}>
+        <SettingItem
+          style={styles.setting}
+          hint='Edit Profile'
+        />
+        <SettingItem
+          style={styles.setting}
+          hint='Change Password'
+        />
+        <SettingItem
+          style={styles.setting}
+          hint='Notification'
+        />
+        <SettingItem
+          style={styles.setting}
+          hint='Privacy'
+        />
+        <SettingItem
+          style={styles.setting}
+          hint='Sound Enabled'
+          onPress={() => { }}>
+          <Toggle
+            checked={true}
+            onChange={() => { }}
+          />
+        </SettingItem>
+      </Layout>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -98,5 +67,18 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   theme: state.main.theme
 });
+
+Settings.navigationOptions = {
+  title: "Settings",
+  headerStyle: {
+    backgroundColor: "#9A000D",
+  },
+  headerTintColor: "#fff",
+  headerTitleStyle: {
+    fontWeight: "bold",
+    alignSelf: 'center',
+    textAlign: 'center',
+  }
+};
 
 export default connect(mapStateToProps, {})(Settings);
