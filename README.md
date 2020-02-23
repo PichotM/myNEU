@@ -1,4 +1,17 @@
 # myNEU
+<br/>
+
+<p align="center">
+  <a href="https://travis-ci.com/PichotM/myNEU/"><img src="https://travis-ci.com/PichotM/myNEU.svg?branch=master" alt="Travis CI Builds"></a>
+  <a href="#"><img src="https://cdn.rawgit.com/aleen42/badges/master/src/react.svg" alt="React Badge"></a>
+  <a href="#"><img src="https://cdn.rawgit.com/aleen42/badges/master/src/node.svg" alt="Node.js"></a>
+  <a href="#"><img src="https://cdn.rawgit.com/aleen42/badges/master/src/typescript.svg" alt="Typescript"></a>
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome!" />
+  <a href="#"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="GitHub license"></a>
+</p>
+
+----
+
 Multiple utilities packed into one app for Northeastern University
 
 This mobile application is still in heavy development.
